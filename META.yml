@@ -1,0 +1,21 @@
+---
+name: App-ZofCMS-Plugin-NavMaker
+version: 0.0101
+author:
+  - 'Zoffix Znet <zoffix@cpan.org>'
+abstract: ZofCMS plugin for making navigation bars
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  HTML::Template: 2.9
+build_requires:
+  Test::More: 0
+provides:
+  App::ZofCMS::Plugin::NavMaker:
+    file: lib/App/ZofCMS/Plugin/NavMaker.pm
+    version: 0.0101
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

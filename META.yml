@@ -1,6 +1,6 @@
 ---
 name: App-ZofCMS-Plugin-NavMaker
-version: 0.0101
+version: 0.0102
 author:
   - 'Zoffix Znet <zoffix@cpan.org>'
 abstract: ZofCMS plugin for making navigation bars
@@ -14,7 +14,7 @@ build_requires:
 provides:
   App::ZofCMS::Plugin::NavMaker:
     file: lib/App/ZofCMS/Plugin/NavMaker.pm
-    version: 0.0101
+    version: 0.0102
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

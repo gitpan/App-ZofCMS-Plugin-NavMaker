@@ -1,5 +1,9 @@
 Revision history for App-ZofCMS-Plugin-NavMaker
 
+0.0103  November 19, 2008
+        Added ability to stuff config from main config file first-level key
+        Added ability to give a sub.
+
 0.0102  October 17, 2008
         Edited shebang in t/pod.t to prevent fail results on smokers
 

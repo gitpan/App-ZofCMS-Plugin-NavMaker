@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::NavMaker;
 use warnings;
 use strict;
 
-our $VERSION = '0.0102';
+our $VERSION = '0.0103';
 
 use HTML::Template;
 
@@ -12,10 +12,14 @@ sub new { bless {}, shift }
 sub process {
     my ( $self, $template, $query, $config ) = @_;
 
-    return
-        unless $template->{nav_maker};
+    my $nav = delete($template->{nav_maker}) || delete $config->conf->{nav_maker};
 
-    my $nav = delete $template->{nav_maker};
+    return
+        unless $nav;
+
+    if ( ref $nav eq 'CODE' ) {
+        $nav = $nav->( $template, $query, $config );
+    }
 
     my $html_template
     = HTML::Template->new_scalar_ref( \ $self->_get_html_template );
@@ -75,7 +79,7 @@ App::ZofCMS::Plugin::NavMaker - ZofCMS plugin for making navigation bars
 
 =head1 SYNOPSIS
 
-In your ZofCMS Template:
+In your Main Config File or ZofCMS Template:
 
     nav_maker => [
         qw/Foo Bar Baz/,
@@ -108,7 +112,7 @@ navigation bars I was fed up... and released this tiny plugin.
 This documentation assumes you've read L<App::ZofCMS>,
 L<App::ZofCMS::Config> and L<App::ZofCMS::Template>
 
-=head1 FIRST LEVEL ZofCMS TEMPLATE KEYS
+=head1 MAIN CONFIG FILE AND ZofCMS TEMPLATE FIRST LEVEL KEYS
 
 =head2 C<plugins>
 
@@ -126,7 +130,29 @@ your plugins.
         [ qw(foo /foo-bar-baz), 'This is the title=""', 'this_is_id' ],
     ],
 
-Takes an arrayref as a value elements of which can either be strings
+    nav_maker => sub {
+        my ( $template, $query, $config ) = @_;
+
+        return [
+            qw/Foo Bar Baz/,
+            [ qw(Home /home) ],
+            [ qw(Music /music) ],
+            [ qw(foo /foo-bar-baz), 'This is the title=""', 'this_is_id' ],
+        ];
+    }
+
+Can be specified in either Main Config File first-level key or ZofCMS template first-level
+key. If specified in both, the one in ZofCMS Template will take precedence.
+Takes an arrayref or a subref as a value. If the value is a B<subref>, it must return
+an arrayref, which will be processed the same way as if the returned arrayref would be
+assigned to C<nav_maker> key instead of the subref (see description further). The C<@_> of
+the sub will contain the following: C<$template>, C<$query> and C<$config> (in that
+order), where C<$template> is the ZofCMS Template hashref, C<$query> is the query parameters
+(param names are keys and values are their values) and C<$config> is the
+L<App::ZofCMS::Config> object.
+
+The elements of the arrayref (whether directly assigned or returned from the subref)
+can either be strings
 or arrayrefs, element which is a string is the same as an arrayref with just
 that string as an element. Each of those arrayrefs can contain from one
 to four elements. They are interpreted as follows:

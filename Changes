@@ -1,12 +1,16 @@
 Revision history for App-ZofCMS-Plugin-NavMaker
 
-0.0103  November 19, 2008
-        Added ability to stuff config from main config file first-level key
-        Added ability to give a sub.
+0.0104  2013-11-09
+        - Minor fixes to comply with specs and Kwalitee game
 
-0.0102  October 17, 2008
-        Edited shebang in t/pod.t to prevent fail results on smokers
+0.0103  2008-10-19
+        - Added ability to stuff config from main
+          config file first-level key
+        - Added ability to give a sub.
 
-0.0101  August 24, 2008
-        First version, released on an unsuspecting world.
+0.0102  2008-10-17
+        - Edited shebang in t/pod.t to prevent fail results on smokers
+
+0.0101  2008-08-24
+        - First version, released on an unsuspecting world.
 
